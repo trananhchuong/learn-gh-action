@@ -31,11 +31,13 @@ jobs:
       - name: Deploy
         run: echo "Deploying..."
   upload-artifact:
-    needs: test
+    needs: deploy
     runs-on: ubuntu-latest
     steps:
       - name: Upload artifact
         uses: actions/upload-artifact@v3
         with:
           name: my-artifact
-          path: dist
+          path: |
+            dist
+            package.json
