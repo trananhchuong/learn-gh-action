@@ -28,12 +28,6 @@ jobs:
         run: npm ci
       - name: Build project
         run: npm run build
-      - name: Deploy
-        run: echo "Deploying..."
-  upload-artifact:
-    needs: deploy
-    runs-on: ubuntu-latest
-    steps:
       - name: Upload artifact
         uses: actions/upload-artifact@v3
         with:
@@ -41,3 +35,5 @@ jobs:
           path: |
             dist
             package.json
+      - name: Deploy
+        run: echo "Deploying..."
