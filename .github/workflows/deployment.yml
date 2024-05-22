@@ -14,7 +14,7 @@ jobs:
         run: npm ci
       - name: Run tests
         run: npm test
-  deploy:
+  build:
     needs: test
     runs-on: ubuntu-latest
     steps:
@@ -36,5 +36,15 @@ jobs:
             dist
             package.json
             vite.config.js
+  deloy:
+    needs: build
+    runs-on: ubuntu-latest
+    steps:
+      - name: Get build artifact
+        uses: actions/download-artifact@v3
+        with:
+          name: dist-files
+      - name: Output contents
+        run: ls
       - name: Deploy
         run: echo "Deploying..."
