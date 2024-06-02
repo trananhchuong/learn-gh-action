@@ -82,3 +82,5 @@ jobs:
         run: echo "${{ secrets.TEST_KEYS }}"
       - name: env vairable value
         run: echo "${{ env.ENV_VARIBALE_TEST_1 }}"
+      - name: env secrets value
+        run: echo "${{ secrets.SERECT_TEST_1 }}"
