@@ -77,5 +77,7 @@ jobs:
         run: echo "${{ env.GLOBAL_VAR }}"
       - name: scope job env 
         run: echo "${{ env.JOB_VAR }}"
-      - name: secrets 
+      - name: secrets key test
         run: echo "${{ secrets.TEST_KEYS }}"
+      - name: env vairable value
+        run: echo "${{ env.ENV_VARIBALE_TEST_1 }}"
