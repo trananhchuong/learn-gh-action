@@ -1,5 +1,7 @@
 name: Test Project
 on: [push, workflow_dispatch]
+env:
+  GLOBAL_VAR: global_value
 jobs:
   test:
     runs-on: ubuntu-latest
@@ -66,3 +68,9 @@ jobs:
         run: echo "${{ needs.build.outputs.script-file }}"
       - name: Deploy
         run: echo "Deploying..."
+  enviroment-test:
+    needs: build
+    runs-on: ubuntu-latest
+    steps:
+      - name: Example Step
+        run: echo "Variable: ${{ env.GLOBAL_VAR }}"
