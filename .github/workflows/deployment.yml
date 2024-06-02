@@ -71,6 +71,10 @@ jobs:
   enviroment-test:
     needs: build
     runs-on: ubuntu-latest
+    env:
+      JOB_VAR: job_value
     steps:
-      - name: Example Step
+      - name: scope global env 
         run: echo "${{ env.GLOBAL_VAR }}"
+      - name: scope job env 
+        run: echo "${{ env.JOB_VAR }}"
