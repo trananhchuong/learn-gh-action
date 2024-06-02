@@ -70,6 +70,7 @@ jobs:
   #       run: echo "Deploying..."
   enviroment-test:
     runs-on: ubuntu-latest
+    environment: env-testing
     env:
       JOB_VAR: job_value
     steps:
