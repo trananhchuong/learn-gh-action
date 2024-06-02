@@ -3,73 +3,72 @@ on: [push, workflow_dispatch]
 env:
   GLOBAL_VAR: global_value
 jobs:
-  test:
-    runs-on: ubuntu-latest
-    steps:
-      - name: Get code
-        uses: actions/checkout@v3
-      - name: Cache dependencies
-        uses: actions/cache@v3
-        with:
-          path: ~/.npm
-          key: deps-node-modules-${{ hashFiles('**/package-lock.json') }}
-      - name: Install Nodejs
-        uses: actions/setup-node@v3
-        with:
-          node-version: 18
-      - name: Install dependencies
-        run: npm ci
-      - name: Run tests
-        run: npm test
-  build:
-    needs: test
-    runs-on: ubuntu-latest
-    outputs:
-      script-file: ${{ steps.publish.outputs.script-file }}
-    steps:
-      - name: Get code
-        uses: actions/checkout@v3
-      - name: Cache dependencies
-        uses: actions/cache@v3
-        with:
-          path: ~/.npm
-          key: deps-node-modules-${{ hashFiles('**/package-lock.json') }}
-      - name: Install Nodejs
-        uses: actions/setup-node@v3
-        with:
-          node-version: 18
-      - name: Install dependencies
-        run: npm ci
-      - name: Build project
-        run: npm run build
-      - name: Publish JS filename
-        id: publish
-        run: find dist/assets/*.js -type f -execdir echo 'script-file={}' >> $GITHUB_OUTPUT ';'
-      - name: Upload artifact
-        uses: actions/upload-artifact@v3
-        with:
-          name: dist-files
-          path:
-            dist
-            # dist
-            # package.json
-            # vite.config.js
-  deloy:
-    needs: build
-    runs-on: ubuntu-latest
-    steps:
-      - name: Get build artifact
-        uses: actions/download-artifact@v3
-        with:
-          name: dist-files
-      - name: Output contents
-        run: ls
-      - name: Output filenames
-        run: echo "${{ needs.build.outputs.script-file }}"
-      - name: Deploy
-        run: echo "Deploying..."
+  # test:
+  #   runs-on: ubuntu-latest
+  #   steps:
+  #     - name: Get code
+  #       uses: actions/checkout@v3
+  #     - name: Cache dependencies
+  #       uses: actions/cache@v3
+  #       with:
+  #         path: ~/.npm
+  #         key: deps-node-modules-${{ hashFiles('**/package-lock.json') }}
+  #     - name: Install Nodejs
+  #       uses: actions/setup-node@v3
+  #       with:
+  #         node-version: 18
+  #     - name: Install dependencies
+  #       run: npm ci
+  #     - name: Run tests
+  #       run: npm test
+  # build:
+  #   needs: test
+  #   runs-on: ubuntu-latest
+  #   outputs:
+  #     script-file: ${{ steps.publish.outputs.script-file }}
+  #   steps:
+  #     - name: Get code
+  #       uses: actions/checkout@v3
+  #     - name: Cache dependencies
+  #       uses: actions/cache@v3
+  #       with:
+  #         path: ~/.npm
+  #         key: deps-node-modules-${{ hashFiles('**/package-lock.json') }}
+  #     - name: Install Nodejs
+  #       uses: actions/setup-node@v3
+  #       with:
+  #         node-version: 18
+  #     - name: Install dependencies
+  #       run: npm ci
+  #     - name: Build project
+  #       run: npm run build
+  #     - name: Publish JS filename
+  #       id: publish
+  #       run: find dist/assets/*.js -type f -execdir echo 'script-file={}' >> $GITHUB_OUTPUT ';'
+  #     - name: Upload artifact
+  #       uses: actions/upload-artifact@v3
+  #       with:
+  #         name: dist-files
+  #         path:
+  #           dist
+  #           # dist
+  #           # package.json
+  #           # vite.config.js
+  # deloy:
+  #   needs: build
+  #   runs-on: ubuntu-latest
+  #   steps:
+  #     - name: Get build artifact
+  #       uses: actions/download-artifact@v3
+  #       with:
+  #         name: dist-files
+  #     - name: Output contents
+  #       run: ls
+  #     - name: Output filenames
+  #       run: echo "${{ needs.build.outputs.script-file }}"
+  #     - name: Deploy
+  #       run: echo "Deploying..."
   enviroment-test:
-    needs: build
     runs-on: ubuntu-latest
     env:
       JOB_VAR: job_value
@@ -78,3 +77,5 @@ jobs:
         run: echo "${{ env.GLOBAL_VAR }}"
       - name: scope job env 
         run: echo "${{ env.JOB_VAR }}"
+      - name: secrets 
+        run: echo "${{ secrets.TEST_KEYS }}"
