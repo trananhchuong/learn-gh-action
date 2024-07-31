@@ -23,15 +23,11 @@ jobs:
     needs: run-shell-commands
     steps:
       - name: echo a string
-        run: Write-Output "Windows String"
-      - name: Error Step
-        run: doesnotexits
+        run: Write-Output "dependant-job"
 
   dependant-job-2:
     runs-on: windows-latest
     needs: [run-shell-commands, parallel-job-macos]
     steps:
      - name: echo a string
-       run: Write-Output "Windows String"
-     - name: Error Step
-       run: doesnotexits
+       run: Write-Output "dependant-job-2"
