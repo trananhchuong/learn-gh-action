@@ -16,7 +16,9 @@ jobs:
     runs-on: macos-latest
     steps:
       - name: View SW Version
-        run: sw_vers
+      run: |
+        node -v
+        npm -v
 
   dependant-job:
     runs-on: windows-latest
