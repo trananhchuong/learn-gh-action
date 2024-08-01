@@ -1,5 +1,5 @@
 name: First Workflow
-on: [push]
+on:  [push, workflow_dispatch]
 
 jobs:
   run-shell-commands:
@@ -9,16 +9,16 @@ jobs:
         run: echo "Hello World"
       - name: Multiline Command
         run: |
-          node -v
-          npm -v
+            node -v
+            npm -v
 
   parallel-job-macos:
     runs-on: macos-latest
     steps:
       - name: View SW Version
-      run: |
-        node -v
-        npm -v
+        run: |
+            node -v
+            npm -v
 
   dependant-job:
     runs-on: windows-latest
