@@ -1,4 +1,5 @@
 #help-area {
   margin: auto;
   display: flex;
+  background: red;
 }
