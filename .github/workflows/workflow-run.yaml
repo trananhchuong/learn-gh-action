@@ -1,0 +1,10 @@
+name: Workflow Run
+on:
+  workflow_run:
+    workflows: [Pull Request Comment]
+    types: [completed]
+jobs:
+  echo-string:
+    runs-on: ubuntu-latest
+    steps:
+      - run: echo "I was triggered because 'Pull Request Comment' was completed"
